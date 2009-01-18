@@ -1,0 +1,242 @@
+OPEN "high.scr" FOR INPUT AS #1
+INPUT #1, a$, a, B$, B, c$, c
+CLOSE
+RANDOMIZE TIMER
+level = 1: leben = 5
+10 SCREEN 9
+11 LOCATE 7, 35: PRINT "Willkommen"
+FOR sou = 100 TO 1500 STEP 10
+SOUND sou, .1
+NEXT sou
+FOR za = 1 TO 75000
+NEXT za
+LOCATE 9, 39: PRINT "zu"
+FOR sou = 100 TO 1500 STEP 10
+SOUND sou, .1
+NEXT sou
+FOR za = 1 TO 75000
+NEXT za
+fa = 14
+CLS
+ky = 100
+FOR kx = 150 TO 300 STEP 15
+ky = ky + 20
+LINE (320 - kx / 2, 159 - ky / 4)-STEP(kx, ky / 2 - 25), , B
+NEXT kx
+LOCATE 11, 35: COLOR 14: PRINT "Blaster Ball": COLOR 15
+REM IF mus = 0 THEN PLAY "faegfcab"
+LOCATE 20, 25: COLOR 14: PRINT "[S]"; : COLOR 15: PRINT "tart": LOCATE 20, 46: COLOR 14: PRINT "[H]"; : COLOR 15: PRINT "ighscores"
+13 bb$ = INKEY$
+IF bb$ = "s" THEN GOTO 14
+IF bb$ = "h" THEN GOTO 2600
+GOTO 13
+14 CLS : xa = 5:  zeit = 4750: be = 3: g = 500: fa = 0: COLOR 15: f = 15
+LOCATE 1, 2: PRINT "Punkte:"; punkte: LOCATE 1, 36: PRINT "Leben:"; leben: LOCATE 1, 72: PRINT "Zeit:"; CINT(zeit / 47.97979797979#)
+IF level = 2 THEN LINE (265, 50)-(360, 110), , B: LINE (265, 50)-(265, 110), 7: LINE (360, 50)-(360, 110), 7
+IF level = 3 THEN LINE (100, 50)-STEP(100, 75), , B: LINE (100, 50)-(100, 125), 7: LINE (200, 50)-(200, 125), 7: LINE (540, 50)-STEP(-100, 75), , B: LINE (540, 50)-(540, 125), 7: LINE (440, 50)-(440, 125), 7
+IF level = 4 THEN LINE (100, 50)-STEP(100, 75), , B: LINE (100, 50)-(100, 125), 7: LINE (200, 50)-(200, 125), 7: LINE (540, 50)-STEP(-100, 75), , B: LINE (540, 50)-(540, 125), 7: LINE (440, 50)-(440, 125), 7
+IF level = 4 THEN LINE (265, 80)-(360, 110), , B: LINE (265, 80)-(265, 110), 7: LINE (360, 80)-(360, 110), 7
+LINE (1, 15)-(639, 15)
+LINE (1, 325)-(1, 15), 7: LINE (639, 325)-(639, 15), 7
+x = INT(600 * RND) + 20
+y = 35
+15 n = 1: m = 1
+CIRCLE (x, y), 7
+LOCATE 23, xa: COLOR 7: PRINT CHR$(219); : COLOR 15: PRINT CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); : COLOR 7: PRINT CHR$(219): COLOR 15
+LOCATE 10, 37: PRINT "Level"; level
+FOR za = 1 TO 100000
+NEXT za
+SOUND 1000, 5
+LOCATE 12, 38: COLOR 4: PRINT "Ready"
+FOR za = 1 TO 100000
+NEXT za
+SOUND 1000, 5
+LOCATE 12, 38: COLOR 14: PRINT " Set "
+FOR za = 1 TO 100000
+NEXT za
+SOUND 2000, 10
+LOCATE 12, 38: COLOR 2: PRINT " Go! ": COLOR 15
+FOR za = 1 TO 100000
+NEXT za
+LOCATE 10, 37: PRINT "       "
+LOCATE 12, 38: PRINT "      "
+IF level = 2 THEN LINE (265, 50)-(360, 110), , B: LINE (265, 50)-(265, 110), 7: LINE (360, 50)-(360, 110), 7
+CIRCLE (x, y), 7, 0
+20 x = x + n: y = y + m
+30 fb = POINT(x + 8, y + 7): fc = POINT(x + 8, y - 7): fd = POINT(x - 8, y - 7): fe = POINT(x - 8, y + 7)
+LOCATE 1, 2: PRINT "Punkte:"; punkte: LOCATE 1, 36: PRINT "Leben:"; leben: LOCATE 1, 72: PRINT "Zeit:"; CINT(zeit / 47.97979797979#)
+CIRCLE (x, y), 7
+50 CIRCLE (x - n, y - m), 7, 0
+FOR za = 1 TO g
+NEXT za
+IF fb = 7 OR fc = 7 OR fd = 7 OR fe = 7 THEN SOUND 1750, .1: n = -n
+IF fb = 15 OR fc = 15 OR fd = 15 OR fe = 15 THEN m = m * (-1): SOUND 1750, .1
+60 IF g <= 25 THEN GOTO 500
+punkte = punkte + 5
+zeit = zeit - 1
+g = g - .1
+IF y >= 349 THEN GOTO 400
+GOTO 450
+400 CIRCLE (x, y), 7, 0
+FOR sou = -1000 TO -40 STEP 5
+SOUND -sou, .1
+NEXT sou
+440 FOR kreise = 1 TO 20
+y = INT(20 * RND) - 10
+x = INT(70 * RND) - 35
+FOR r = 1 TO 25
+sou = INT(300 * RND) + 400
+SOUND sou, .1
+CIRCLE ((xa + 3) * 640 / 80 + x, 315 + y), r, 4
+CIRCLE ((xa + 3) * 640 / 80 + x, 315 + y), r / 2, 14
+NEXT r
+FOR r = -25 TO 0
+CIRCLE ((xa + 3) * 640 / 80 + x, 315 + y), -r, 0
+NEXT r
+NEXT kreise
+IF leben > 0 THEN leben = leben - 1: GOTO 14
+fa = 15: LINE (240, 110)-STEP(160, 90), 4, B: LINE (230, 100)-STEP(180, 110), 4, B: PAINT (245, 105), 4: a = 0
+445 LOCATE 10, 37: COLOR fa: PRINT "Game Over"
+LOCATE 13, 34: COLOR 15: PRINT "Nochmal? [j;n]"
+IF fa = 4 THEN fa = 15: GOTO 447
+IF fa = 15 THEN fa = 4
+447 FOR za = 1 TO 10000
+aB$ = INKEY$
+IF aB$ = "j" THEN punkte = 0: leben = 5: level = 1: GOTO 14
+IF aB$ = "n" THEN END
+NEXT za
+448 GOTO 445
+450
+aa$ = INKEY$
+IF y > 303 THEN GOTO 460
+IF aa$ = "5" AND be = 3 THEN be = 8: f = 0: GOTO 455
+IF aa$ = "5" AND be = 8 THEN be = 3: f = 15
+IF aa$ = "p" THEN GOTO 2700
+455 IF aa$ = "6" THEN xa = xa + be: LOCATE 23, xa - be: PRINT "         "
+IF aa$ = "4" THEN xa = xa - be: LOCATE 23, xa + be: PRINT "         "
+460
+'*** Curser Begrenzung ***
+IF aa$ = "6" AND xa >= 71 THEN xa = 71
+IF aa$ = "4" AND xa <= 3 THEN xa = 2
+
+LOCATE 23, xa: COLOR 7: PRINT CHR$(219); : COLOR f: PRINT CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); CHR$(219); : COLOR 7: PRINT CHR$(219): COLOR 15
+GOTO 20
+500 FOR r = 1 TO 75
+sou = INT(300 * RND) + 400
+SOUND sou, .1
+CIRCLE (x, y), r, 4
+CIRCLE (x, y), r / 2, 14
+NEXT r
+FOR r = -75 TO 0
+CIRCLE (x, y), -r, 0
+NEXT r
+FOR za = 1 TO 25000
+NEXT za
+CLS
+600 fa = INT(14 * RND) + 1
+FOR za = 1 TO 3000
+NEXT za
+IF level = 4 THEN GOSUB 2500: GOTO 650
+IF level = 3 THEN GOSUB 2500: leben = leben + 1: level = 4
+IF level = 2 THEN GOSUB 2500: leben = leben + 1: level = 3
+IF level = 1 THEN GOSUB 2500: leben = leben + 1: level = 2
+GOTO 14
+650 fa = INT(14 * RND) + 1
+LOCATE 8, 29: COLOR fa: PRINT "Herzlichen Glckwunsch!"
+LOCATE 11, 14: COLOR 15: PRINT "Du hast es geschaft. Du hast das Spiel durch gespielt."
+FOR za = 1 TO 10000
+IF INKEY$ = " " THEN CLS : GOTO 700
+NEXT za
+GOTO 650
+700 LOCATE 8, 22.5: COLOR 15: PRINT "Dieses Spiel wurde programmiert von"
+LOCATE 12, 34.5: COLOR 14: PRINT "INGO RUHNKE": COLOR 15
+IF INKEY$ = " " THEN CLS : GOTO 800
+GOTO 700
+800 LOCATE 8, 35: PRINT "Grafik von"
+LOCATE 12, 34: COLOR 2: PRINT "INGO RUHNKE": COLOR 15
+IF INKEY$ = " " THEN CLS : GOTO 900
+GOTO 800
+900 LOCATE 8, 35: PRINT "Sound von"
+LOCATE 12, 33.5: COLOR 5: PRINT "INGO RUHNKE": COLOR 15
+IF INKEY$ = " " THEN CLS : GOTO 1000
+GOTO 900
+1000 LOCATE 8, 23.5: COLOR 15: PRINT "Die Idee zu diesem Spiel stammt von"
+LOCATE 16, 33: COLOR 5: PRINT "Stefan Ruhnke": COLOR 15
+LOCATE 14, 38.5: COLOR 15: PRINT "und"
+LOCATE 12, 33.5: COLOR 14: PRINT "Ingo Ruhnke"
+IF INKEY$ = " " THEN CLS : fa = 0: GOTO 1100
+GOTO 1000
+1100 LOCATE 8, 29: COLOR 14: PRINT "Thank you for playing!"
+LOCATE 11, 34: COLOR 2: PRINT "presented by": COLOR 15
+LOCATE 15, 31: COLOR fa: PRINT "GG - Grumbel Games": COLOR 15
+IF INKEY$ = " " THEN CLS : fa = 0: GOTO 1200
+IF fa = 0 THEN fa = 15: GOTO 1150
+IF fa = 15 THEN fa = 0
+1150 FOR za = 1 TO 15000
+NEXT za
+GOTO 1100
+1200 LOCATE 10, 19: COLOR fa: PRINT "Das wars. Du kannst das Spiel nun beenden."
+IF fa = 0 THEN fa = 14: GOTO 1250
+IF fa = 14 THEN fa = 0
+1250 IF INKEY$ = " " THEN CLS : fa = 0: GOTO 1300
+FOR za = 1 TO 20000
+NEXT za
+GOTO 1200
+1300 COLOR 15
+INPUT "Geben sie ihren Namen ein: ", name$
+IF name$ = "" THEN name$ = "NO NAME"
+CLS
+punkte = punkte + 25000 * leben
+OPEN "high.scr" FOR OUTPUT AS #1
+IF punkte > a - 1 THEN PRINT #1, name$: PRINT #1, punkte
+PRINT #1, a$
+PRINT #1, a
+IF punkte > B - 1 AND punkte < a THEN PRINT name$: PRINT #1, punkte
+PRINT #1, B$
+PRINT #1, B
+IF punkte > c - 1 AND punkte < B THEN PRINT name$: PRINT #1, punkte: CLOSE : GOTO 2400
+PRINT #1, c$
+PRINT #1, c
+CLOSE
+2400 LOCATE 6, 36: PRINT "Highscores"
+LINE (274, 68)-(365, 85), 14, B
+LOCATE 8, 30: PRINT a$
+LOCATE 8, 45: PRINT a
+LOCATE 10, 30: PRINT B$
+LOCATE 10, 45: PRINT B
+LOCATE 12, 30: PRINT c$
+LOCATE 12, 45: PRINT c
+END
+2500 FOR za = 1 TO 10000
+NEXT za
+RETURN
+2600 CLS : COLOR 15
+LOCATE 6, 36: PRINT "Highscores"
+2610 LINE (274, 68)-(365, 85), 14, B
+2620 LOCATE 8, 30: PRINT a$
+2630 LOCATE 8, 45: PRINT a
+2640 LOCATE 10, 30: PRINT B$
+2650 LOCATE 10, 45: PRINT B
+2660 LOCATE 12, 30: PRINT c$
+2670 LOCATE 12, 45: PRINT c
+LOCATE 15, 37: COLOR 14: PRINT "[S]"; : COLOR 15: PRINT "tart"
+2680 cc$ = INKEY$
+IF cc$ = "s" THEN GOTO 14
+GOTO 2680
+2700 aa$ = INKEY$
+LOCATE 1, 22: COLOR far: PRINT "Pause": LOCATE 1, 56: PRINT "Pause"
+IF far = 14 THEN far = 0: GOTO 2750
+far = 14
+2750 FOR za = 1 TO 10000
+IF aa$ = "p" THEN far = 0: LOCATE 1, 22: COLOR far: PRINT "Pause": LOCATE 1, 56: PRINT "Pause": COLOR 15: GOTO 455
+NEXT za
+GOTO 2700
+
+
+
+
+
+
+
+
+

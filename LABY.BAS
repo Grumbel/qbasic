@@ -1,0 +1,368 @@
+DECLARE SUB LabyScan3 (xPos%, yPos%, Richtung%, Laby%)
+DECLARE SUB LabyScan2 (xPos%, yPos%, Richtung%, Laby%, Wand2%)
+DECLARE SUB LabyScan (xPos%, yPos%, Richtung%, Laby%, Wand%)
+
+da% = 1
+db% = 0
+SCREEN 9, , da%, db%
+
+CLS
+yPos% = 3
+DIM SHARED Zoom%(9)
+DIM SHARED Laby%(6, 6)
+DIM SHARED Wand2%(60)
+DIM SHARED Wand3%(60)
+DIM SHARED Wand%(60)
+
+FOR x% = 1 TO 6
+   Laby%(x%, 1) = -1
+   Laby%(1, x%) = -1
+   Laby%(x%, 6) = -1
+   Laby%(6, x%) = -1
+NEXT x%
+
+FOR x% = 2 TO 4
+   Laby%(x%, 3) = 1
+   'Laby%(x%, 4) = 1
+NEXT x%
+
+FOR x% = 3 TO 4
+   Laby%(x%, 5) = 1
+   'Laby%(x%, 4) = 1
+NEXT x%
+
+Zoom%(0) = -1
+Zoom%(1) = -1'50
+Zoom%(2) = 50'150
+Zoom%(3) = 150'210
+Zoom%(4) = 210'240
+Zoom%(5) = 240'265
+Zoom%(6) = 265'280
+Zoom%(7) = 280'290
+Zoom%(8) = 290'296
+Zoom%(9) = 296'300
+
+xPos% = 2: yPos% = 2
+Richtung% = 5
+GOTO 20
+
+10
+ERASE Wand%
+ERASE Wand2%
+ERASE Wand3%
+TempyPos% = yPos%
+TempxPos% = xPos%
+
+1
+a$ = INKEY$
+IF a$ <> "" THEN GOTO 2
+GOTO 1
+
+2
+IF a$ = CHR$(0) + "M" OR a$ = "6" THEN Richtung% = Richtung% + 1: GOTO 20'rechts
+IF a$ = CHR$(0) + "K" OR a$ = "4" THEN Richtung% = Richtung% - 1: GOTO 20'links
+
+IF a$ = CHR$(0) + "H" AND Richtung% = 5 THEN yPos% = yPos% - 1: GOTO 20 'oben
+IF a$ = CHR$(0) + "P" AND Richtung% = 5 THEN yPos% = yPos% + 1: GOTO 20 'unten
+
+IF a$ = CHR$(0) + "H" AND Richtung% = 2 THEN xPos% = xPos% + 1: GOTO 20
+IF a$ = CHR$(0) + "P" AND Richtung% = 2 THEN xPos% = xPos% - 1: GOTO 20
+
+IF a$ = CHR$(0) + "H" AND Richtung% = 3 THEN yPos% = yPos% + 1: GOTO 20
+IF a$ = CHR$(0) + "P" AND Richtung% = 3 THEN yPos% = yPos% - 1: GOTO 20
+
+IF a$ = CHR$(0) + "H" AND Richtung% = 4 THEN xPos% = xPos% - 1: GOTO 20
+IF a$ = CHR$(0) + "P" AND Richtung% = 4 THEN xPos% = xPos% + 1: GOTO 20
+
+IF a$ = "8" AND Richtung% = 5 THEN yPos% = yPos% - 1: GOTO 20 'oben
+IF a$ = "2" AND Richtung% = 5 THEN yPos% = yPos% + 1: GOTO 20'unten
+       
+IF a$ = "8" AND Richtung% = 2 THEN xPos% = xPos% + 1: GOTO 20
+IF a$ = "2" AND Richtung% = 2 THEN xPos% = xPos% - 1: GOTO 20
+       
+IF a$ = "8" AND Richtung% = 3 THEN yPos% = yPos% + 1: GOTO 20
+IF a$ = "2" AND Richtung% = 3 THEN yPos% = yPos% - 1: GOTO 20
+
+IF a$ = "8" AND Richtung% = 4 THEN xPos% = xPos% - 1: GOTO 20
+IF a$ = "2" AND Richtung% = 4 THEN xPos% = xPos% + 1: GOTO 20
+
+IF a$ = "1" AND Richtung% = 5 THEN xPos% = xPos% - 1: GOTO 20
+IF a$ = "3" AND Richtung% = 5 THEN xPos% = xPos% + 1: GOTO 20
+        
+IF a$ = "1" AND Richtung% = 2 THEN yPos% = yPos% - 1: GOTO 20
+IF a$ = "3" AND Richtung% = 2 THEN yPos% = yPos% + 1: GOTO 20
+
+IF a$ = "1" AND Richtung% = 3 THEN xPos% = xPos% + 1: GOTO 20
+IF a$ = "3" AND Richtung% = 3 THEN xPos% = xPos% - 1: GOTO 20
+
+IF a$ = "1" AND Richtung% = 4 THEN yPos% = yPos% + 1: GOTO 20
+IF a$ = "3" AND Richtung% = 4 THEN yPos% = yPos% - 1: GOTO 20
+
+20
+
+IF Laby%(xPos%, yPos%) = 1 OR Laby%(xPos%, yPos%) = -1 THEN 'Wandkolision
+   xPos% = TempxPos%
+   yPos% = TempyPos%
+   SOUND 1000, .5
+END IF
+
+IF Richtung% < 2 THEN Richtung% = 5
+IF Richtung% > 5 THEN Richtung% = 2
+
+CLS
+
+Laby%(TempxPos%, TempyPos%) = 0
+Laby%(xPos%, yPos%) = Richtung%
+
+
+CALL LabyScan(xPos%, yPos%, Richtung%, Laby%, Wand%)
+
+Wand2:
+CALL LabyScan2(xPos%, yPos%, Richtung%, Laby%, Wand2%)
+
+Wand3:
+CALL LabyScan3(xPos%, yPos%, Richtung%, Laby%)
+0
+
+
+FOR aaax% = 6 TO 1 STEP -1
+   IF Wand3%(aaax%) = 1 THEN
+      zx% = 640 - Zoom%(aaax%)
+      zxx% = 640 - Zoom%(aaax% + 1)
+      LINE (zx%, zx% * .546875)-(zxx%, zxx% * .546875)
+      LINE (zx%, 350 - zx% * .546875)-(zxx%, 350 - zxx% * .546875)
+   END IF
+
+   IF Wand3%(aaax%) = -1 THEN
+      IF Labygrenz% = 1 THEN Labygrenz% = 0: GOTO NxtWand
+      Labygrenz% = 1
+      zx% = 640 - Zoom%(aaax%)
+      zxx% = 640 - Zoom%(aaax% + 1)
+      LINE (zx%, zx% * .546875)-(zxx%, zxx% * .546875)
+      LINE (zx%, 350 - zx% * .546875)-(zxx%, 350 - zxx% * .546875)
+   END IF
+
+
+   IF Wand3%(aaax%) = 0 THEN
+      zx% = 640 - Zoom%(aaax%)
+      zxx% = 640 - Zoom%(aaax% + 1)
+      zy% = Zoom%(aaax% + 1) * .546875
+      LINE (zx%, zx% * .546875)-(zx%, 350 - zx% * .546875)
+      LINE (zx%, zy%)-(zxx%, zy%)
+      LINE (zx%, 350 - zy%)-(zxx%, 350 - zy%)
+      LINE (zxx%, 350 - zy%)-(zxx%, zy%)
+   END IF
+
+NEXT aaax%
+
+NxtWand:
+Labygrenz% = 0
+FOR aaax% = 6 TO 1 STEP -1
+   
+   IF Wand2%(aaax%) = 1 THEN
+      zx% = Zoom%(aaax%)
+      zxx% = Zoom%(aaax% + 1)
+      LINE (zx%, zx% * .546875)-(zxx%, zxx% * .546875)
+      LINE (zx%, 350 - zx% * .546875)-(zxx%, 350 - zxx% * .546875)
+   END IF
+
+   IF Wand2%(aaax%) = -1 THEN
+      IF Labygrenz% = 1 THEN Labygrenz% = 0: GOTO NxtWand2
+      Labygrenz% = 1
+      zx% = Zoom%(aaax%)
+      zxx% = Zoom%(aaax% + 1)
+      LINE (zx%, zx% * .546875)-(zxx%, zxx% * .546875)
+      LINE (zx%, 350 - zx% * .546875)-(zxx%, 350 - zxx% * .546875)
+   END IF
+
+
+   IF Wand2%(aaax%) = 0 THEN
+      zx% = Zoom%(aaax%)
+      zxx% = Zoom%(aaax% + 1)
+      zy% = Zoom%(aaax% + 1) * .546875
+      LINE (zx%, zx% * .546875)-(zx%, 350 - zx% * .546875)
+      LINE (zx%, zy%)-(zxx%, zy%)
+      LINE (zx%, 350 - zy%)-(zxx%, 350 - zy%)
+      LINE (zxx%, 350 - zy%)-(zxx%, zy%)
+   END IF
+
+NEXT aaax%
+
+NxtWand2:
+FOR aaax% = 6 TO 1 STEP -1
+   
+  
+   IF Wand%(aaax%) = 1 OR Wand%(aaax%) = -1 THEN
+      zx% = Zoom%(aaax%)
+      LINE (zx%, 350 - zx% * .546875)-(640 - zx%, zx% * .546875), 0, BF
+      LINE (zx%, 350 - zx% * .546875)-(640 - zx%, 350 - zx% * .546875)
+      LINE (zx%, zx% * .546875)-(640 - zx%, zx% * .546875)
+      
+     
+      IF Wand2%(aaax% - 1) = 1 OR Wand2%(aaax% - 1) = -1 THEN
+         LINE (zx%, 350 - zx% * .546875)-(zx%, zx% * .546875)
+      END IF
+
+      IF Wand3%(aaax% - 1) = 1 OR Wand3%(aaax% - 1) = -1 THEN
+         LINE (640 - zx%, 350 - zx% * .546875)-(640 - zx%, zx% * .546875)
+      END IF
+
+   END IF
+
+NEXT aaax%
+
+LabyDraw:
+
+LINE (0, 0)-(8 * 6 + 2, 6 * 14 + 2), 7, BF
+
+FOR aax% = 1 TO 6
+   FOR aay% = 1 TO 6
+      LOCATE aay%, aax%
+    
+         SELECT CASE Laby%(aax%, aay%)
+       
+            CASE 0
+            PRINT CHR$(176)
+     
+            CASE -1
+            PRINT CHR$(177)
+
+            CASE 1
+            PRINT CHR$(177)
+          
+            CASE 2
+            PRINT CHR$(16)
+
+            CASE 3
+            PRINT CHR$(25)
+
+            CASE 4
+            PRINT CHR$(17)
+
+            CASE 5
+            PRINT CHR$(24)
+ 
+         END SELECT
+
+   NEXT aay%
+NEXT aax%
+
+'LINE (0, 20 * 14)-(640, 350), 7, BF
+
+Labygrenz% = 0
+
+'Bildschirm wechsel
+IF da% = 0 THEN da% = 1: db% = 0: GOTO 999
+IF da% = 1 THEN da% = 0: db% = 1
+
+999 SCREEN 9, , da%, db%
+
+GOTO 10
+
+SUB LabyScan (xPos%, yPos%, Richtung%, Laby%, Wand%)
+xScann% = xPos%
+yScann% = yPos%
+
+ScannStart:
+  
+   ScanD% = ScanD% + 1
+   Wand%(ScanD%) = Laby%(xScann%, yScann%)
+   IF Laby%(xScann%, yScann%) = -1 OR Laby%(xScann%, yScann%) = 1 THEN GOTO Ende
+  
+   IF Richtung% = 5 THEN yScann% = yScann% - 1
+   IF Richtung% = 2 THEN xScann% = xScann% + 1
+   IF Richtung% = 3 THEN yScann% = yScann% + 1
+   IF Richtung% = 4 THEN xScann% = xScann% - 1
+   
+GOTO ScannStart
+
+Ende:
+
+END SUB
+
+SUB LabyScan2 (xPos%, yPos%, Richtung%, Laby%, Wand2%) STATIC
+
+   xScann% = xPos%
+   yScann% = yPos%
+
+WandAbstand2 = 0
+
+SELECT CASE Richtung%
+   CASE 2
+   ry% = -1: rx% = 0
+   CASE 3
+   rx% = 1: ry% = 0
+   CASE 4
+   ry% = 1: rx% = 0
+   CASE 5
+   rx% = -1: ry% = 0
+END SELECT
+
+ScannStart2:
+   ScanD% = ScanD% + 1
+   Wand2%(ScanD%) = Laby%(xScann% + rx%, yScann% + ry%)
+   IF Laby%(xScann% + rx%, yScann% + ry%) = -1 THEN GOTO Ende2
+  
+   IF Richtung% = 5 THEN yScann% = yScann% - 1
+   IF Richtung% = 2 THEN xScann% = xScann% + 1
+   IF Richtung% = 3 THEN yScann% = yScann% + 1
+   IF Richtung% = 4 THEN xScann% = xScann% - 1
+
+GOTO ScannStart2
+
+Ende2:
+
+Endfunc:
+
+IF ScanD% = 1 THEN
+  
+   FOR xd% = ScanD% TO 6
+      Wand2%(xd%) = 1
+   NEXT xd%
+
+END IF
+
+ScanD% = 0
+
+
+END SUB
+
+SUB LabyScan3 (xPos%, yPos%, Richtung%, Laby%)
+
+xScann% = xPos%
+yScann% = yPos%
+
+SELECT CASE Richtung%
+   CASE 2
+   ry% = 1: rx% = 0
+   CASE 3
+   rx% = -1: ry% = 0
+   CASE 4
+   ry% = -1: rx% = 0
+   CASE 5
+   rx% = 1: ry% = 0
+END SELECT
+
+ScannStart3:
+   ScanD% = ScanD% + 1
+   Wand3%(ScanD%) = Laby%(xScann% + rx%, yScann% + ry%)
+  
+   IF Laby%(xScann% + rx%, yScann% + ry%) = -1 THEN GOTO Ende3
+   IF Richtung% = 5 THEN yScann% = yScann% - 1
+   IF Richtung% = 2 THEN xScann% = xScann% + 1
+   IF Richtung% = 3 THEN yScann% = yScann% + 1
+   IF Richtung% = 4 THEN xScann% = xScann% - 1
+  
+  
+
+GOTO ScannStart3
+Ende3:
+
+IF ScanD% = 1 THEN
+   FOR xd% = ScanD% TO 6
+      Wand3%(xd%) = 1
+   NEXT xd%
+END IF
+
+END SUB
+

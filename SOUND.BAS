@@ -1,0 +1,4 @@
+CLS
+10 SOUND STICK(1) * 10, 1
+GOTO 10
+

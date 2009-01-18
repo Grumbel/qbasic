@@ -1,0 +1,7 @@
+
+10 SCREEN 9
+20 x = x - .05
+LOCATE 1, 1: PRINT .005 * x ^ 2 + 50
+30 PSET (x + 350, .005 * x ^ 2 + 50)
+GOTO 20
+

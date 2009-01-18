@@ -1,0 +1,15 @@
+10 SCREEN 9
+20 CLS
+30 PRINT "Joystick calibrieren"
+40 PRINT "Joystick nach oben und links halten und Knopf drÅcken!"
+50 oben = STICK(1): links = STICK(0)
+60 IF STRIG(1) = -1 THEN GOTO 80
+70 GOTO 50
+80 PRINT "Joystick nach unten und rechts halten und Knopf drÅcken"
+90 unten = STICK(1): rechts = STICK(0)
+100 IF STRIG(1) = -1 THEN GOTO 120
+110 GOTO 90
+120 IF unten + 10 < STICK(1) THEN LOCATE 1, 1: PRINT "unten"
+130 if oben
+
+

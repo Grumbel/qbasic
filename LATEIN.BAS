@@ -1,0 +1,77 @@
+10 SCREEN 9
+20 CLS
+30 RANDOMIZE TIMER
+35 num = INT(2 * RND) + 1
+40 gen = INT(3 * RND) + 1
+50 cas = INT(5 * RND) + 1
+60 IF num = 1 THEN num$ = "singular, "
+70 IF num = 2 THEN num$ = "plural, "
+80 IF gen = 1 THEN gen$ = "mask."
+90 IF gen = 2 THEN gen$ = "fem."
+100 IF gen = 3 THEN gen$ = "neu. "
+120 IF cas = 1 THEN cas$ = "Nominativ, "
+130 IF cas = 2 THEN cas$ = "Genetiv, "
+140 IF cas = 3 THEN cas$ = "Dativ, "
+150 IF cas = 4 THEN cas$ = "Akkusativ, "
+160 IF cas = 5 THEN cas$ = "Ablativ, "
+170 PRINT "Wie heiát das adjektivische Interrogativpronomen ("; cas$; num$; gen$; ")?"
+180 INPUT ant$
+190 IF num = 1 AND gen = 1 AND cas = 1 AND ant$ = "qui" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+200 IF num = 1 AND gen = 2 AND cas = 1 AND ant$ = "quae" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+210 IF num = 1 AND gen = 3 AND cas = 1 AND ant$ = "quod" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+220 IF num = 1 AND gen = 1 AND cas = 2 AND ant$ = "cuius" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+230 IF num = 1 AND gen = 2 AND cas = 2 AND ant$ = "cuius" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+240 IF num = 1 AND gen = 3 AND cas = 2 AND ant$ = "cuius" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+250 IF num = 1 AND gen = 1 AND cas = 3 AND ant$ = "cui" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+260 IF num = 1 AND gen = 2 AND cas = 3 AND ant$ = "cui" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+270 IF num = 1 AND gen = 3 AND cas = 3 AND ant$ = "cui" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+280 IF num = 1 AND gen = 1 AND cas = 4 AND ant$ = "quem" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+290 IF num = 1 AND gen = 2 AND cas = 4 AND ant$ = "quam" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+300 IF num = 1 AND gen = 3 AND cas = 4 AND ant$ = "quod" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+310 IF num = 1 AND gen = 1 AND cas = 5 AND ant$ = "quo" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+320 IF num = 1 AND gen = 2 AND cas = 5 AND ant$ = "qua" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+340 IF num = 1 AND gen = 3 AND cas = 5 AND ant$ = "quo" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+350 IF num = 2 AND gen = 1 AND cas = 1 AND ant$ = "qui" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+360 IF num = 2 AND gen = 2 AND cas = 1 AND ant$ = "quae" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+370 IF num = 2 AND gen = 3 AND cas = 1 AND ant$ = "quae" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+380 IF num = 2 AND gen = 1 AND cas = 2 AND ant$ = "quorum" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+390 IF num = 2 AND gen = 2 AND cas = 2 AND ant$ = "quarum" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+400 IF num = 2 AND gen = 3 AND cas = 2 AND ant$ = "quorum" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+410 IF num = 2 AND gen = 1 AND cas = 3 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+420 IF num = 2 AND gen = 2 AND cas = 3 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+430 IF num = 2 AND gen = 3 AND cas = 3 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+440 IF num = 2 AND gen = 1 AND cas = 4 AND ant$ = "quos" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+450 IF num = 2 AND gen = 2 AND cas = 4 AND ant$ = "quas" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+460 IF num = 2 AND gen = 3 AND cas = 4 AND ant$ = "quae" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+470 IF num = 2 AND gen = 1 AND cas = 5 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+480 IF num = 2 AND gen = 2 AND cas = 5 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+490 IF num = 2 AND gen = 3 AND cas = 5 AND ant$ = "quibus" THEN PRINT "Richtig!": punkt = punkt + 1: GOTO 510
+500 PRINT "Falsch!"
+510 IF vers = 9 THEN GOTO 530
+520 vers = vers + 1: GOTO 30
+530 CLS : PRINT "Von 10 adjektivischen Interrogativproneomen hast du"; punkt; "richtig!"
+540 IF punkt = 10 THEN PRINT "Super, du kannst alle.": GOTO 590
+550 IF punkt >= 7 THEN PRINT "Gut, lerne lieber noch etwas!": GOTO 590
+560 IF punkt >= 4 THEN PRINT "Naja, du muát noch kr„ftig lernen!": GOTO 590
+570 IF punkt >= 1 AND punkt <= 3 THEN PRINT "Das war woll nichts, lern erst mal.": GOTO 590
+580 IF punkt = 0 THEN PRINT "Du Dummkopf, warum hast du den berhaubt Latein gew„hlt?"
+590 INPUT "Nochmal (j/n)?", noch$
+600 IF noch$ = "j" THEN GOTO 10
+605 PRINT ""
+606 PRINT ""
+610 PRINT "                 singular"
+620 PRINT "                m.      f.      n."
+630 PRINT "     Nom.      qui     quae    quod"
+640 PRINT "     Gen.     cuius   cuius   cuius"
+650 PRINT "     Dat.      cui     cui     cui"
+660 PRINT "     Akk.      quem    quam    quod"
+670 PRINT "     Abl.      quo     qua      quo"
+671 PRINT ""
+675 PRINT "                   plural"
+680 PRINT "     Nom.      qui     quae     quae"
+690 PRINT "     Gen.    quorum   quarum  quorum"
+700 PRINT "     Dat.    quibus   quibus  quibus"
+710 PRINT "     Akk.     quos     quas     quae"
+720 PRINT "     Abl.    quibus   quibus  quibus"
+730 END
+
