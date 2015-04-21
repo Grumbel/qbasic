@@ -8,8 +8,8 @@ Note: This is a raw directory dump and hasn't been cleaned up much, so
 it may still contain code by third parties.
 
 
-Running
--------
+Running on Linux
+----------------
 
 A copy of QBasic can be found at:
 
@@ -19,12 +19,19 @@ Download and unzip that into the `c:/` directory.
 
 [DOSBox](http://www.dosbox.com/) is required as well.
 
-Once both of those are done, the QBasic programs can be launched with
+Once both of those are installed, the QBasic programs can be launched with
 the `run.py` script, e.g.:
 
-    ./run.py src/*.BAS
+    ./run.py src/LABY4.BAS
 
-Useful keyboard bindings are:
+Or just:
+
+    ./run.py
+
+which will display a list with all the programs.
+
+Keybindings
+-----------
 
 * F5: start a QBasic program
 * Ctrl-ScrollLock: Interrupt a running QBasic program
@@ -35,8 +42,8 @@ Useful keyboard bindings are:
 Some programs require a joystick.
 
 
-Notable Programs
-----------------
+'Notable' Programs
+------------------
 
 # LABY4.BAS, LABYEDT4.BAS
 
