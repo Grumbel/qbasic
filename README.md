@@ -3,8 +3,8 @@ QBasic
 
 This is QBasic code written from 1993 to 1997 by Ingo Ruhnke.
 
-Note: This is a raw directory dump and hasn't been cleaned up, so it
-may contains code by third parties.
+Note: This is a raw directory dump and hasn't been cleaned up much, so
+it may contains code by third parties.
 
 
 Running
