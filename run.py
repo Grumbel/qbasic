@@ -18,7 +18,7 @@ def run_qbasic(filename):
         raise Exception("c:/QBASIC.EXE missing")
     else:
         dosfilename = filename_to_dos(filename)
-        subprocess.check_call(["dosbox",
+        subprocess.call(["dosbox",
                                "-conf", "dosbox.conf",
                                "-c", "mount c c:",
                                "-c", "c:",
@@ -28,7 +28,7 @@ def run_qbasic(filename):
 
 def main():
     parser = argparse.ArgumentParser(description="QBasic Starter")
-    parser.add_argument('FILE', action='store', type=str, nargs=1,
+    parser.add_argument('FILE', action='store', type=str, nargs='+',
                         help=".BAS file to run")
     args = parser.parse_args()
 
