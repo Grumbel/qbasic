@@ -39,7 +39,7 @@ def show_menu(title, items, default):
 
 
 def show_bas_menu():
-    files = glob.glob("src/*.[bB][aA][sS]") + glob.glob("src/*/*.[bB][aA][sS]")
+    files = sorted(glob.glob("src/*.[bB][aA][sS]")) + sorted(glob.glob("src/*/*.[bB][aA][sS]"))
     ret = ""
     while True:
         ret = show_menu("Run QBasic App", [(x, "") for x in files], ret)
