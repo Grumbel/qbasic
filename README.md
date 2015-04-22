@@ -45,12 +45,12 @@ Some programs require a joystick.
 'Notable' Programs
 ------------------
 
-# LABY4.BAS, LABYEDT4.BAS
+### LABY4.BAS, LABYEDT4.BAS
 
 A first person dungeon crawler, doesn't feature enemies or a goal, but
 it has automap, stairs, pits and some more.
 
-# LAS.BAS
+### LAS.BAS
 
 A two player light cycle game.
 
