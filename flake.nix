@@ -1,16 +1,18 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
-    qbasic_src.url = "https://www.qbasic.net/dl.php?id=SG1AHdleKmO9U&file=qb11_en";
-    qbasic_src.flake = false;
   };
 
-  outputs = { self, nixpkgs, flake-utils, qbasic_src }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        qbasic_src = pkgs.fetchurl {
+          url = "https://qbasic.net/dl.php?file=qb11_en";
+          curlOptsList = [ "-e" "https://qbasic.net/" ];
+          hash = "sha256-RWtEpf5SnWZBovBS8R1uiN0m5H4zJtJJAbLCFvFsslU=";
+        };
       in {
         packages = rec {
           default = grumbel-qbasic;
